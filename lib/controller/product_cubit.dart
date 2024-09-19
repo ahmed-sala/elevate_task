@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../data/model/ProductModel.dart';
 import 'repository/product_repository.dart';
 
-part 'product_state.dart'; // You'll create this state file next.
+part 'product_state.dart';
 
 class ProductCubit extends Cubit<ProductState> {
   final ProductRepository repository;

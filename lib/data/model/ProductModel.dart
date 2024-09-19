@@ -17,7 +17,6 @@ class ProductModel {
     required this.rating,
   });
 
-  // Factory method to create an instance from JSON
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
       id: json['id'],
@@ -30,7 +29,6 @@ class ProductModel {
     );
   }
 
-  // Method to convert the instance back to JSON
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -53,7 +51,6 @@ class Rating {
     required this.count,
   });
 
-  // Factory method to create a Rating instance from JSON
   factory Rating.fromJson(Map<String, dynamic> json) {
     return Rating(
       rate: json['rate'].toDouble(),
@@ -61,7 +58,6 @@ class Rating {
     );
   }
 
-  // Method to convert Rating instance back to JSON
   Map<String, dynamic> toJson() {
     return {
       'rate': rate,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../controller/product_cubit.dart';
+import '../widget/item_card.dart';
 
 class ProductScreen extends StatefulWidget {
   @override
@@ -12,7 +13,6 @@ class _ProductScreenState extends State<ProductScreen> {
   @override
   void initState() {
     super.initState();
-    // Delay the fetchProducts call slightly to ensure the cubit is available
     Future.microtask(() {
       context.read<ProductCubit>().fetchProducts();
     });
@@ -29,15 +29,23 @@ class _ProductScreenState extends State<ProductScreen> {
           if (state is ProductLoading) {
             return Center(child: CircularProgressIndicator());
           } else if (state is ProductLoaded) {
-            return ListView.builder(
+            return GridView.builder(
+              padding: EdgeInsets.all(10),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 20,
+                childAspectRatio: 0.7,
+              ),
               itemCount: state.products.length,
               itemBuilder: (context, index) {
                 final product = state.products[index];
-                return ListTile(
-                  leading: Image.network(product.image!),
-                  title: Text(product.title!),
-                  subtitle: Text(
-                      '\$${product.price!.toStringAsFixed(2)}'), // Ensure consistent price format
+                return ProductCard(
+                  imageUrl: product.image,
+                  title: product.title ?? '',
+                  description: product.description ?? '',
+                  currentPrice: product.price ?? 0.0,
+                  rating: product.rating,
                 );
               },
             );
